@@ -53,7 +53,13 @@
     <Compile Include="Article.cs">
       <DependentUpon>Sale.tt</DependentUpon>
     </Compile>
-    <Compile Include="Customer.cs">
+    <Compile Include="Client.cs">
+      <DependentUpon>Sale.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FileLog.cs">
+      <DependentUpon>Sale.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Manager.cs">
       <DependentUpon>Sale.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

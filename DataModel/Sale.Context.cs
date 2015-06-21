@@ -25,8 +25,10 @@ namespace DataModel
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Customer> CustomerSet { get; set; }
-        public DbSet<Article> ArticleSet { get; set; }
-        public DbSet<Sale> SaleSet { get; set; }
+        public DbSet<Article> Articles { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<FileLog> FileLogs { get; set; }
+        public DbSet<Manager> Managers { get; set; }
+        public DbSet<Sale> Sales { get; set; }
     }
 }

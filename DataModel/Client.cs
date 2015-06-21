@@ -12,9 +12,9 @@ namespace DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Article
+    public partial class Client
     {
-        public Article()
+        public Client()
         {
             this.Sales = new HashSet<Sale>();
         }

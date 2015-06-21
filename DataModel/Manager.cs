@@ -12,16 +12,17 @@ namespace DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class Manager
     {
-        public Customer()
+        public Manager()
         {
-            this.Sale = new HashSet<Sale>();
+            this.FileLogs = new HashSet<FileLog>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string SecondName { get; set; }
     
-        public virtual ICollection<Sale> Sale { get; set; }
+        public virtual ICollection<FileLog> FileLogs { get; set; }
     }
 }

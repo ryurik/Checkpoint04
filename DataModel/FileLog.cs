@@ -12,16 +12,19 @@ namespace DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Article
+    public partial class FileLog
     {
-        public Article()
+        public FileLog()
         {
             this.Sales = new HashSet<Sale>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
+        public System.DateTime Date { get; set; }
+        public string FileName { get; set; }
+        public int Manager_Id { get; set; }
     
         public virtual ICollection<Sale> Sales { get; set; }
+        public virtual Manager Manager { get; set; }
     }
 }
