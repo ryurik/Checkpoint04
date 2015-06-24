@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -28,9 +29,22 @@ namespace Checkpoint04
         {
             if (!File.Exists(filename))
             {
-                Console.WriteLine("Не могу найти файл:{0}", filename);
+                Console.WriteLine("File not exists:{0}", filename);
                 //Console.ReadKey();
+                return;
             }
+            filename = Path.GetFileName(filename);
+
+            using (SalesEntities salesEntities = new SalesEntities())
+            {
+                if (salesEntities.FileLogs.Any(x => x.FileName.Equals(filename, StringComparison.OrdinalIgnoreCase)))
+                {
+                    Console.WriteLine("File was already processed:{0}", filename);
+                    //Console.ReadKey();
+                    return;
+                }
+            }
+
             string secondName = new Regex(@"([a-zA-Z]+){1}").Match(filename).Captures[0].ToString();
 
             FileInfo f = new FileInfo(filename);
@@ -61,11 +75,12 @@ namespace Checkpoint04
                         {
                             Date = dtDateTime,
                             Client = split[1],
-                            ManagerName = secondName,
+                            ManagerName = new ManagerName(){FirstName = "", SecondName = secondName},
                             Article = split[2],
                             Price = price,
+                            FileLog = filename
                         };
-                        AddCortegeToDB(cortege);
+                        AddCortegeToDb(cortege);
                     }
                     //Console.WriteLine(readLine);
                     line++;
@@ -76,32 +91,49 @@ namespace Checkpoint04
             
         }
 
-        private static void AddCortegeToDB(ICortege cortege)
+        private static void AddCortegeToDb(ICortege cortege)
         {
-            using (SaleContainer dc = new SaleContainer())
+            using (SalesEntities salesEntities = new SalesEntities())
             {
-                dc.Database.Log = x => Console.WriteLine(x);
+                salesEntities.Database.Log = x => Console.WriteLine(x);
 
-                if (dc.Managers.Where(x=>x.SecondName.ToLower().CompareTo(cortege.ManagerName)))
-                Manager m = new Manager(); cor;
-                Blog b = new Blog();
-                dc.BlogSet.Add(b);
+                Managers manager = salesEntities.Managers.FirstOrDefault(x => x.SecondName.ToLower().Equals(cortege.ManagerName.SecondName.ToLower()));
+                if (manager == null)
+                {
+                    manager = new Managers(){SecondName = cortege.ManagerName.SecondName,};
+                    salesEntities.Managers.Add(manager);
+                    salesEntities.SaveChanges();
+                }
 
-                BlogItem bi = new BlogItem() { User = u1, Blog = b };
-                dc.BlogItemSet.Add(bi);
+                Clients client = salesEntities.Clients.FirstOrDefault(x => x.Name.ToLower().Equals(cortege.Client.ToLower()));
+                if (client == null)
+                {
+                    client = new Clients(){Name = cortege.Client};
+                    salesEntities.Clients.Add(client);
+                    salesEntities.SaveChanges();
+                }
+                Articles article = salesEntities.Articles.FirstOrDefault(x => x.Name.ToLower().Equals(cortege.Article.ToLower()));
+                if (article == null)
+                {
+                    article = new Articles(){Name = cortege.Article,};
+                    salesEntities.Articles.Add(article);
+                    salesEntities.SaveChanges();
+                }
 
-                u1.UserName = "Петя";
-
-
-                //User u = new User(){UserName = "Федя"};
-                //dc.UserSet.Add(u);
-
-                // dc.SaveChanges();
-
-                //dc.UserSet.Attach()
-
-                // var c = dc.Entry<User>(u1);
-                var c = dc.UserSet.FirstOrDefault().BlogItems.ToList();
+                FileLogs filelog = salesEntities.FileLogs.FirstOrDefault(x => x.FileName.ToLower().Equals(cortege.FileLog.ToLower()));
+                if (filelog == null)
+                {
+                    filelog = new FileLogs() {Date = cortege.Date, FileName = cortege.FileLog, Managers = manager,};
+                }
+                // ok, now we have all ID of objects. We can put this cortege to DB
+                var sales = new Sales()
+                {
+                    Articles = article,
+                    Clients = client,
+                    Date = cortege.Date,
+                    FileLogs = filelog,
+                    Sum = cortege.Price,
+                };
 
 
             }

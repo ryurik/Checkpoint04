@@ -13,10 +13,10 @@ namespace DataModel
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SaleContainer : DbContext
+    public partial class SalesEntities : DbContext
     {
-        public SaleContainer()
-            : base("name=SaleContainer")
+        public SalesEntities()
+            : base("name=SalesEntities")
         {
         }
     
@@ -25,10 +25,10 @@ namespace DataModel
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Article> Articles { get; set; }
-        public DbSet<Client> Clients { get; set; }
-        public DbSet<FileLog> FileLogs { get; set; }
-        public DbSet<Manager> Managers { get; set; }
-        public DbSet<Sale> Sales { get; set; }
+        public DbSet<Articles> Articles { get; set; }
+        public DbSet<Clients> Clients { get; set; }
+        public DbSet<FileLogs> FileLogs { get; set; }
+        public DbSet<Managers> Managers { get; set; }
+        public DbSet<Sales> Sales { get; set; }
     }
 }

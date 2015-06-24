@@ -9,10 +9,6 @@ namespace Checkpoint04
         public string Client { get; set; }
         public string Article { get; set; }
         public decimal Price { get; set; }
-
-        public string SecondName
-        {
-            get { return (this.ManagerName != null) ? ManagerName.SecondName : null; }
-        }
+        public string FileLog { get; set; }
     }
 }

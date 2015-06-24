@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C3EA0E11-2BCB-4643-986B-6F1DD7E297FE}</ProjectGuid>
+    <ProjectGuid>{42E23DB6-6F05-41AB-B3DE-95A3DE77AA4B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DataModel</RootNamespace>
@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -50,63 +51,56 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Article.cs">
-      <DependentUpon>Sale.tt</DependentUpon>
+    <Compile Include="Articles.cs">
+      <DependentUpon>Sales.tt</DependentUpon>
     </Compile>
-    <Compile Include="Client.cs">
-      <DependentUpon>Sale.tt</DependentUpon>
+    <Compile Include="Clients.cs">
+      <DependentUpon>Sales.tt</DependentUpon>
     </Compile>
-    <Compile Include="FileLog.cs">
-      <DependentUpon>Sale.tt</DependentUpon>
+    <Compile Include="FileLogs.cs">
+      <DependentUpon>Sales.tt</DependentUpon>
     </Compile>
-    <Compile Include="Manager.cs">
-      <DependentUpon>Sale.tt</DependentUpon>
+    <Compile Include="Managers.cs">
+      <DependentUpon>Sales.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sale.Context.cs">
+    <Compile Include="Sales.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Sale.Context.tt</DependentUpon>
+      <DependentUpon>Sales.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sale.cs">
+    <Compile Include="Sales.cs">
+      <DependentUpon>Sales.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sales.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Sale.tt</DependentUpon>
+      <DependentUpon>Sales.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Sale.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Sale.edmx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="Sale.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Sale.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Sale.Context.tt">
+    <EntityDeploy Include="Sales.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Sales.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Sales.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Sale.edmx</DependentUpon>
-      <LastGenOutput>Sale.Context.cs</LastGenOutput>
+      <DependentUpon>Sales.edmx</DependentUpon>
+      <LastGenOutput>Sales.Context.cs</LastGenOutput>
     </None>
-    <None Include="Sale.edmx.diagram">
-      <DependentUpon>Sale.edmx</DependentUpon>
+    <None Include="Sales.edmx.diagram">
+      <DependentUpon>Sales.edmx</DependentUpon>
     </None>
-    <None Include="Sale.tt">
+    <None Include="Sales.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Sale.edmx</DependentUpon>
-      <LastGenOutput>Sale.cs</LastGenOutput>
+      <DependentUpon>Sales.edmx</DependentUpon>
+      <LastGenOutput>Sales1.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Sale.edmx.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

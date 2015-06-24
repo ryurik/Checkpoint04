@@ -9,5 +9,6 @@ namespace Checkpoint04
         string Client { get; set; }
         string Article { get; set; } 
         decimal Price { get; set; }
+        string FileLog { get; set; }
     }
 }

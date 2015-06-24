@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SalesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="SalesModelStoreContainer">
+          <EntitySet Name="Articles" EntityType="SalesModel.Store.Articles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Clients" EntityType="SalesModel.Store.Clients" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FileLogs" EntityType="SalesModel.Store.FileLogs" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Managers" EntityType="SalesModel.Store.Managers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Sales" EntityType="SalesModel.Store.Sales" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_ArticleSale" Association="SalesModel.Store.FK_ArticleSale">
+            <End Role="Articles" EntitySet="Articles" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientSaleSet" Association="SalesModel.Store.FK_ClientSaleSet">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilesLogSaleSet" Association="SalesModel.Store.FK_FilesLogSaleSet">
+            <End Role="FileLogs" EntitySet="FileLogs" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManagerSetFilesLog" Association="SalesModel.Store.FK_ManagerSetFilesLog">
+            <End Role="Managers" EntitySet="Managers" />
+            <End Role="FileLogs" EntitySet="FileLogs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Articles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FileLogs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Manager_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Managers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SecondName" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sales">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Sum" Type="decimal" Nullable="false" />
+          <Property Name="Article_Id" Type="int" Nullable="false" />
+          <Property Name="Client_Id" Type="int" Nullable="false" />
+          <Property Name="FileLog_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ArticleSale">
+          <End Role="Articles" Type="SalesModel.Store.Articles" Multiplicity="1" />
+          <End Role="Sales" Type="SalesModel.Store.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="Article_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientSaleSet">
+          <End Role="Clients" Type="SalesModel.Store.Clients" Multiplicity="1" />
+          <End Role="Sales" Type="SalesModel.Store.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilesLogSaleSet">
+          <End Role="FileLogs" Type="SalesModel.Store.FileLogs" Multiplicity="1" />
+          <End Role="Sales" Type="SalesModel.Store.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileLogs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="FileLog_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManagerSetFilesLog">
+          <End Role="Managers" Type="SalesModel.Store.Managers" Multiplicity="1" />
+          <End Role="FileLogs" Type="SalesModel.Store.FileLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FileLogs">
+              <PropertyRef Name="Manager_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SalesModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SalesEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Articles" EntityType="SalesModel.Articles" />
+          <EntitySet Name="Clients" EntityType="SalesModel.Clients" />
+          <EntitySet Name="FileLogs" EntityType="SalesModel.FileLogs" />
+          <EntitySet Name="Managers" EntityType="SalesModel.Managers" />
+          <EntitySet Name="Sales" EntityType="SalesModel.Sales" />
+          <AssociationSet Name="FK_ArticleSale" Association="SalesModel.FK_ArticleSale">
+            <End Role="Articles" EntitySet="Articles" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientSaleSet" Association="SalesModel.FK_ClientSaleSet">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilesLogSaleSet" Association="SalesModel.FK_FilesLogSaleSet">
+            <End Role="FileLogs" EntitySet="FileLogs" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ManagerSetFilesLog" Association="SalesModel.FK_ManagerSetFilesLog">
+            <End Role="Managers" EntitySet="Managers" />
+            <End Role="FileLogs" EntitySet="FileLogs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Articles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Sales" Relationship="SalesModel.FK_ArticleSale" FromRole="Articles" ToRole="Sales" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Sales" Relationship="SalesModel.FK_ClientSaleSet" FromRole="Clients" ToRole="Sales" />
+        </EntityType>
+        <EntityType Name="FileLogs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Manager_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Sales" Relationship="SalesModel.FK_FilesLogSaleSet" FromRole="FileLogs" ToRole="Sales" />
+          <NavigationProperty Name="Managers" Relationship="SalesModel.FK_ManagerSetFilesLog" FromRole="FileLogs" ToRole="Managers" />
+        </EntityType>
+        <EntityType Name="Managers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="SecondName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="FileLogs" Relationship="SalesModel.FK_ManagerSetFilesLog" FromRole="Managers" ToRole="FileLogs" />
+        </EntityType>
+        <EntityType Name="Sales">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Sum" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Article_Id" Type="Int32" Nullable="false" />
+          <Property Name="Client_Id" Type="Int32" Nullable="false" />
+          <Property Name="FileLog_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Articles" Relationship="SalesModel.FK_ArticleSale" FromRole="Sales" ToRole="Articles" />
+          <NavigationProperty Name="Clients" Relationship="SalesModel.FK_ClientSaleSet" FromRole="Sales" ToRole="Clients" />
+          <NavigationProperty Name="FileLogs" Relationship="SalesModel.FK_FilesLogSaleSet" FromRole="Sales" ToRole="FileLogs" />
+        </EntityType>
+        <Association Name="FK_ArticleSale">
+          <End Role="Articles" Type="SalesModel.Articles" Multiplicity="1" />
+          <End Role="Sales" Type="SalesModel.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="Article_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientSaleSet">
+          <End Role="Clients" Type="SalesModel.Clients" Multiplicity="1" />
+          <End Role="Sales" Type="SalesModel.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilesLogSaleSet">
+          <End Role="FileLogs" Type="SalesModel.FileLogs" Multiplicity="1" />
+          <End Role="Sales" Type="SalesModel.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileLogs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="FileLog_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ManagerSetFilesLog">
+          <End Role="Managers" Type="SalesModel.Managers" Multiplicity="1" />
+          <End Role="FileLogs" Type="SalesModel.FileLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Managers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FileLogs">
+              <PropertyRef Name="Manager_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SalesModelStoreContainer" CdmEntityContainer="SalesEntities">
+          <EntitySetMapping Name="Articles">
+            <EntityTypeMapping TypeName="SalesModel.Articles">
+              <MappingFragment StoreEntitySet="Articles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="SalesModel.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileLogs">
+            <EntityTypeMapping TypeName="SalesModel.FileLogs">
+              <MappingFragment StoreEntitySet="FileLogs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Manager_Id" ColumnName="Manager_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Managers">
+            <EntityTypeMapping TypeName="SalesModel.Managers">
+              <MappingFragment StoreEntitySet="Managers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sales">
+            <EntityTypeMapping TypeName="SalesModel.Sales">
+              <MappingFragment StoreEntitySet="Sales">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Sum" ColumnName="Sum" />
+                <ScalarProperty Name="Article_Id" ColumnName="Article_Id" />
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
+                <ScalarProperty Name="FileLog_Id" ColumnName="FileLog_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -2,11 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkpoint04", "Checkpoint04.csproj", "{C9D0BFFF-0BF2-4E66-B95B-7AFA49E8DE66}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C3EA0E11-2BCB-4643-986B-6F1DD7E297FE} = {C3EA0E11-2BCB-4643-986B-6F1DD7E297FE}
-	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "DataModel\DataModel.csproj", "{C3EA0E11-2BCB-4643-986B-6F1DD7E297FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "DataModel\DataModel.csproj", "{42E23DB6-6F05-41AB-B3DE-95A3DE77AA4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,10 +15,10 @@ Global
 		{C9D0BFFF-0BF2-4E66-B95B-7AFA49E8DE66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9D0BFFF-0BF2-4E66-B95B-7AFA49E8DE66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9D0BFFF-0BF2-4E66-B95B-7AFA49E8DE66}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C3EA0E11-2BCB-4643-986B-6F1DD7E297FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C3EA0E11-2BCB-4643-986B-6F1DD7E297FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C3EA0E11-2BCB-4643-986B-6F1DD7E297FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C3EA0E11-2BCB-4643-986B-6F1DD7E297FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42E23DB6-6F05-41AB-B3DE-95A3DE77AA4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42E23DB6-6F05-41AB-B3DE-95A3DE77AA4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42E23DB6-6F05-41AB-B3DE-95A3DE77AA4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42E23DB6-6F05-41AB-B3DE-95A3DE77AA4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
