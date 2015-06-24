@@ -46,5 +46,29 @@ namespace Checkpoint04.Properties {
                 this["FileExtension"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\RYurik\\Projects\\.Net1-Epam-\\Checkpoint04\\Watcher\\Processed")]
+        public string ProcessedDirectory {
+            get {
+                return ((string)(this["ProcessedDirectory"]));
+            }
+            set {
+                this["ProcessedDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\RYurik\\Projects\\.Net1-Epam-\\Checkpoint04\\Watcher\\Bad")]
+        public string BadFiles {
+            get {
+                return ((string)(this["BadFiles"]));
+            }
+            set {
+                this["BadFiles"] = value;
+            }
+        }
     }
 }

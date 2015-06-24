@@ -14,24 +14,32 @@ namespace Checkpoint04
     {
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
-            string regPattern = @"[a-zA-Z]+_(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[012])(19|20)\d\d.csv";
+            Console.WriteLine("Somthing was appeared in folder:{0}", e.FullPath);
+            string regPattern = @"[a-zA-Z][0-9]+_(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[012])(19|20)\d\d.csv";
 
             Regex reg = new Regex(regPattern);
             MatchCollection matchCollection = reg.Matches(Path.GetFileName(e.FullPath));
 
             if (matchCollection.Count == 1)
             {
-                ProcessFile(e.FullPath);
+                if (ProcessFile(e.FullPath))
+                {
+                    // move file to ProcessedDirectory
+                    if (File.Exists(e.FullPath))
+                    {
+                        File.Move(e.FullPath, Path.GetDirectoryName(e.FullPath));
+                    }
+                };
             }
         }
 
-        private static void ProcessFile(string filename)
+        private static bool  ProcessFile(string filename)
         {
             if (!File.Exists(filename))
             {
                 Console.WriteLine("File not exists:{0}", filename);
                 //Console.ReadKey();
-                return;
+                return false;
             }
             filename = Path.GetFileName(filename);
 
@@ -39,9 +47,9 @@ namespace Checkpoint04
             {
                 if (salesEntities.FileLogs.Any(x => x.FileName.Equals(filename, StringComparison.OrdinalIgnoreCase)))
                 {
-                    Console.WriteLine("File was already processed:{0}", filename);
+                    Console.WriteLine(@"File was already processed:{0}", filename);
                     //Console.ReadKey();
-                    return;
+                    return false;
                 }
             }
 
@@ -88,7 +96,7 @@ namespace Checkpoint04
 
                 s.Close();
             }
-            
+            return true;
         }
 
         private static void AddCortegeToDb(ICortege cortege)
@@ -125,8 +133,8 @@ namespace Checkpoint04
                 {
                     filelog = new FileLogs() {Date = cortege.Date, FileName = cortege.FileLog, Managers = manager,};
                 }
-                // ok, now we have all ID of objects. We can put this cortege to DB
-                var sales = new Sales()
+                // ok, now we have all IDs of objects. We can put this cortege to DB
+                var sale = new Sales()
                 {
                     Articles = article,
                     Clients = client,
@@ -134,8 +142,8 @@ namespace Checkpoint04
                     FileLogs = filelog,
                     Sum = cortege.Price,
                 };
-
-
+                salesEntities.Sales.Add(sale);
+                salesEntities.SaveChanges();
             }
             
         }
@@ -151,6 +159,12 @@ namespace Checkpoint04
             fileSystemWatcher.EnableRaisingEvents = true;
             #endregion FileSystemWatcher
 
+            const ConsoleKey exitKey = ConsoleKey.Enter;
+            ConsoleKeyInfo cki;
+            do
+            {
+                cki = Console.ReadKey(true);
+            } while (cki.Key != exitKey);
         }
     }
 }
