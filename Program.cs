@@ -41,19 +41,19 @@ namespace Checkpoint04
                 //Console.ReadKey();
                 return false;
             }
-            filename = Path.GetFileName(filename);
+            string shortfilename = Path.GetFileName(filename);
 
             using (SalesEntities salesEntities = new SalesEntities())
             {
                 if (salesEntities.FileLogs.Any(x => x.FileName.Equals(filename, StringComparison.OrdinalIgnoreCase)))
                 {
-                    Console.WriteLine(@"File was already processed:{0}", filename);
+                    Console.WriteLine(@"File was already processed:{0}", shortfilename);
                     //Console.ReadKey();
                     return false;
                 }
             }
-
-            string secondName = new Regex(@"([a-zA-Z]+){1}").Match(filename).Captures[0].ToString();
+            MatchCollection matchCollection = new Regex(@"[a-zA-Z][0-9]+").Matches(shortfilename);
+            string secondName = new Regex(@"([a-zA-Z][0-9]+){1}").Match(shortfilename).Captures[0].ToString();
 
             FileInfo f = new FileInfo(filename);
             using (StreamReader s = f.OpenText())
@@ -67,15 +67,15 @@ namespace Checkpoint04
                     Decimal price;
                     if (split.Count() != 4)
                     {
-                        Console.WriteLine(@"Ошибка в файле:{0}\nВ строке {1} нет 4х параметров", filename, line);
+                        Console.WriteLine(@"Ошибка в файле:{0}\nВ строке {1} нет 4х параметров", shortfilename, line);
                     }
                     else if (!DateTime.TryParse(split[0], out dtDateTime))
                     {
-                        Console.WriteLine(@"Ошибка в файле:{0}\nВ строке {1} неверная дата : {2}", filename, line, split[0]);
+                        Console.WriteLine(@"Ошибка в файле:{0}\nВ строке {1} неверная дата : {2}", shortfilename, line, split[0]);
                     }
                     else if (!Decimal.TryParse(split[3].Replace(".", ","), out price))
                     {
-                        Console.WriteLine(@"Ошибка в файле:{0}\nВ строке {1} неверная цена : {2}", filename, line, split[3]);
+                        Console.WriteLine(@"Ошибка в файле:{0}\nВ строке {1} неверная цена : {2}", shortfilename, line, split[3]);
                     }
                     else
                     {
@@ -86,7 +86,7 @@ namespace Checkpoint04
                             ManagerName = new ManagerName(){FirstName = "", SecondName = secondName},
                             Article = split[2],
                             Price = price,
-                            FileLog = filename
+                            FileLog = shortfilename
                         };
                         AddCortegeToDb(cortege);
                     }
