@@ -73,7 +73,7 @@ namespace Checkpoint04.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\RYurik\\Projects\\.Net1-Epam-\\Checkpoint04\\Watcher\\Bad")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\RYurik\\Projects\\.Net1-Epam-\\Checkpoint04\\Watcher\\Bad\\")]
         public string BadFilesDirectory {
             get {
                 return ((string)(this["BadFilesDirectory"]));

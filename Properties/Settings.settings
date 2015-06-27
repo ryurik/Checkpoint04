@@ -15,7 +15,7 @@
       <Value Profile="(Default)">C:\RYurik\Projects\.Net1-Epam-\Checkpoint04\Watcher\Processed\</Value>
     </Setting>
     <Setting Name="BadFilesDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\RYurik\Projects\.Net1-Epam-\Checkpoint04\Watcher\Bad</Value>
+      <Value Profile="(Default)">C:\RYurik\Projects\.Net1-Epam-\Checkpoint04\Watcher\Bad\</Value>
     </Setting>
   </Settings>
 </SettingsFile>

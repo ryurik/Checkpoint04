@@ -67,7 +67,7 @@ namespace Checkpoint04.Classes
             }
             string shortfilename = Path.GetFileName(filename);
 
-            var filelogs = _filelogsRepository.Items.FirstOrDefault(x => x.FileName.Equals(filename, StringComparison.OrdinalIgnoreCase));
+            var filelogs = _filelogsRepository.Items.FirstOrDefault(x => x.FileName.Equals(shortfilename, StringComparison.OrdinalIgnoreCase));
 
             if (filelogs != null)
             {
@@ -148,7 +148,7 @@ namespace Checkpoint04.Classes
             var filelogs = _filelogsRepository.Items.FirstOrDefault(x => x.FileName.ToLower().Equals(cortege.FileLog.ToLower()));
             if (filelogs == null)
             {
-                filelogs = new Repository.Models.FileLogs() { Date = cortege.Date, FileName = cortege.FileLog,};
+                filelogs = new Repository.Models.FileLogs() { Date = cortege.Date, FileName = cortege.FileLog, Manager_Id = managers.Id};
                 _filelogsRepository.Add(filelogs);
             }
 

@@ -24,6 +24,10 @@ namespace Repository.Classes
             var i = ToEntity(item);
             context.Managers.Add(i);
             SaveChanges();
+            if (item.Id == 0) // new Item - we must update Item.ID
+            {
+                item.Id = i.Id;
+            }
         }
 
         public void Remove(Models.Managers item)

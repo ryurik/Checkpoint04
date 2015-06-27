@@ -10,7 +10,23 @@ namespace Repository.Classes
     {
         public DataModel.FileLogs ToEntity(Models.FileLogs source)
         {
-            return new DataModel.FileLogs() { Id = source.Id, Manager_Id = source.Manager_Id, Date = source.Date, FileName = source.FileName};
+            DataModel.FileLogs fl;
+            if (source.Id == 0)
+            {
+                fl = new DataModel.FileLogs()
+                {
+                    Id = source.Id,
+                    Manager_Id = source.Manager_Id,
+                    Date = source.Date,
+                    FileName = source.FileName
+                };
+            }
+            else
+            {
+                fl = context.FileLogs.FirstOrDefault(x => x.Id == source.Id);
+            }
+
+            return fl;
         }
 
         public Repository.Models.FileLogs ToObject(DataModel.FileLogs source)
@@ -25,6 +41,10 @@ namespace Repository.Classes
             var i = ToEntity(item);
             context.FileLogs.Add(i);
             SaveChanges();
+            if (item.Id == 0) // new Item - we must update Item.ID
+            {
+                item.Id = i.Id;
+            }
         }
 
         public void Remove(Models.FileLogs item)
