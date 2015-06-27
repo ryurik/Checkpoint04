@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Cortege.cs" />
+    <Compile Include="Classes\WorkWithFiles.cs" />
     <Compile Include="Interaces\ICortage.cs" />
     <Compile Include="Structures\ManagerName.cs" />
     <Compile Include="Program.cs" />
@@ -84,6 +85,10 @@
     <ProjectReference Include="DataModel\DataModel.csproj">
       <Project>{42e23db6-6f05-41ab-b3de-95a3de77aa4b}</Project>
       <Name>DataModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="Repository\Repository.csproj">
+      <Project>{ad39b46a-5c22-4ed4-bfee-bb4def4bd42e}</Project>
+      <Name>Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

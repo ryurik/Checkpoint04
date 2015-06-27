@@ -8,7 +8,7 @@ using Repository.Interaces;
 
 namespace Repository.Classes
 {
-    class ArticlesRepository : BaseRepository, IModelRepository<Repository.Models.Articles>
+    public class ArticlesRepository : BaseRepository, IModelRepository<Repository.Models.Articles>
     {
         DataModel.Articles ToEntity(Models.Articles source)
         {

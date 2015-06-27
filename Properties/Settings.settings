@@ -2,16 +2,19 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Checkpoint04.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="WorkingDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\RYurik\Projects\.Net1-Epam-\Checkpoint04\Watcher</Value>
-    </Setting>
     <Setting Name="FileExtension" Type="System.String" Scope="User">
       <Value Profile="(Default)">*.csv</Value>
     </Setting>
-    <Setting Name="ProcessedDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\RYurik\Projects\.Net1-Epam-\Checkpoint04\Watcher\Processed</Value>
-    </Setting>
     <Setting Name="BadFiles" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\RYurik\Projects\.Net1-Epam-\Checkpoint04\Watcher\Bad</Value>
+    </Setting>
+    <Setting Name="WorkingDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\RYurik\Projects\.Net1-Epam-\Checkpoint04\Watcher\</Value>
+    </Setting>
+    <Setting Name="ProcessedDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\RYurik\Projects\.Net1-Epam-\Checkpoint04\Watcher\Processed\</Value>
+    </Setting>
+    <Setting Name="BadFilesDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\RYurik\Projects\.Net1-Epam-\Checkpoint04\Watcher\Bad</Value>
     </Setting>
   </Settings>

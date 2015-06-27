@@ -25,18 +25,6 @@ namespace Checkpoint04.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\RYurik\\Projects\\.Net1-Epam-\\Checkpoint04\\Watcher")]
-        public string WorkingDirectory {
-            get {
-                return ((string)(this["WorkingDirectory"]));
-            }
-            set {
-                this["WorkingDirectory"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("*.csv")]
         public string FileExtension {
             get {
@@ -49,7 +37,31 @@ namespace Checkpoint04.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\RYurik\\Projects\\.Net1-Epam-\\Checkpoint04\\Watcher\\Processed")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\RYurik\\Projects\\.Net1-Epam-\\Checkpoint04\\Watcher\\Bad")]
+        public string BadFiles {
+            get {
+                return ((string)(this["BadFiles"]));
+            }
+            set {
+                this["BadFiles"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\RYurik\\Projects\\.Net1-Epam-\\Checkpoint04\\Watcher\\")]
+        public string WorkingDirectory {
+            get {
+                return ((string)(this["WorkingDirectory"]));
+            }
+            set {
+                this["WorkingDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\RYurik\\Projects\\.Net1-Epam-\\Checkpoint04\\Watcher\\Processed\\")]
         public string ProcessedDirectory {
             get {
                 return ((string)(this["ProcessedDirectory"]));
@@ -62,12 +74,12 @@ namespace Checkpoint04.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\RYurik\\Projects\\.Net1-Epam-\\Checkpoint04\\Watcher\\Bad")]
-        public string BadFiles {
+        public string BadFilesDirectory {
             get {
-                return ((string)(this["BadFiles"]));
+                return ((string)(this["BadFilesDirectory"]));
             }
             set {
-                this["BadFiles"] = value;
+                this["BadFilesDirectory"] = value;
             }
         }
     }
