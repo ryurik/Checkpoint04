@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checkpoint04", "Checkpoint0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "DataModel\DataModel.csproj", "{42E23DB6-6F05-41AB-B3DE-95A3DE77AA4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{AD39B46A-5C22-4ED4-BFEE-BB4DEF4BD42E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{42E23DB6-6F05-41AB-B3DE-95A3DE77AA4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42E23DB6-6F05-41AB-B3DE-95A3DE77AA4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42E23DB6-6F05-41AB-B3DE-95A3DE77AA4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD39B46A-5C22-4ED4-BFEE-BB4DEF4BD42E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD39B46A-5C22-4ED4-BFEE-BB4DEF4BD42E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD39B46A-5C22-4ED4-BFEE-BB4DEF4BD42E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD39B46A-5C22-4ED4-BFEE-BB4DEF4BD42E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

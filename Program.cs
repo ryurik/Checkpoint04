@@ -12,12 +12,15 @@ namespace Checkpoint04
 {
     class Program
     {
+        private const string RegPattern = @"[a-zA-Z][0-9]+_(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[012])(19|20)\d\d.csv";
+        private const string SecondNamePattern = @"^(.+)_.*$";
+
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
             Console.WriteLine("Somthing was appeared in folder:{0}", e.FullPath);
-            string regPattern = @"[a-zA-Z][0-9]+_(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[012])(19|20)\d\d.csv";
+            
 
-            Regex reg = new Regex(regPattern);
+            Regex reg = new Regex(RegPattern);
             MatchCollection matchCollection = reg.Matches(Path.GetFileName(e.FullPath));
 
             if (matchCollection.Count == 1)
@@ -27,7 +30,7 @@ namespace Checkpoint04
                     // move file to ProcessedDirectory
                     if (File.Exists(e.FullPath))
                     {
-                        File.Move(e.FullPath, Path.GetDirectoryName(e.FullPath));
+                        File.Move(e.FullPath, Properties.Settings.Default.ProcessedDirectory + Path.GetFileName(e.FullPath));
                     }
                 };
             }
@@ -52,8 +55,8 @@ namespace Checkpoint04
                     return false;
                 }
             }
-            MatchCollection matchCollection = new Regex(@"[a-zA-Z][0-9]+").Matches(shortfilename);
-            string secondName = new Regex(@"([a-zA-Z][0-9]+){1}").Match(shortfilename).Captures[0].ToString();
+            
+            string secondName = new Regex(SecondNamePattern).Match(shortfilename).Groups[1].ToString();
 
             FileInfo f = new FileInfo(filename);
             using (StreamReader s = f.OpenText())
@@ -67,15 +70,15 @@ namespace Checkpoint04
                     Decimal price;
                     if (split.Count() != 4)
                     {
-                        Console.WriteLine(@"Ошибка в файле:{0}\nВ строке {1} нет 4х параметров", shortfilename, line);
+                        Console.WriteLine(@"Error in file:{0}\nRow: {1} missing 4 parameters", shortfilename, line);
                     }
                     else if (!DateTime.TryParse(split[0], out dtDateTime))
                     {
-                        Console.WriteLine(@"Ошибка в файле:{0}\nВ строке {1} неверная дата : {2}", shortfilename, line, split[0]);
+                        Console.WriteLine(@"Error in file:{0}\nRow: {1} wrong date : {2}", shortfilename, line, split[0]);
                     }
                     else if (!Decimal.TryParse(split[3].Replace(".", ","), out price))
                     {
-                        Console.WriteLine(@"Ошибка в файле:{0}\nВ строке {1} неверная цена : {2}", shortfilename, line, split[3]);
+                        Console.WriteLine(@"Error in file:{0}\nRow: {1} wrong price : {2}", shortfilename, line, split[3]);
                     }
                     else
                     {
@@ -108,7 +111,7 @@ namespace Checkpoint04
                 Managers manager = salesEntities.Managers.FirstOrDefault(x => x.SecondName.ToLower().Equals(cortege.ManagerName.SecondName.ToLower()));
                 if (manager == null)
                 {
-                    manager = new Managers(){SecondName = cortege.ManagerName.SecondName,};
+                    manager = new Managers(){FirstName = "", SecondName = cortege.ManagerName.SecondName,};
                     salesEntities.Managers.Add(manager);
                     salesEntities.SaveChanges();
                 }
