@@ -5,36 +5,35 @@ using Repository;
 
 namespace Repository.Classes
 {
-    public class ManagerRepository : IModelRepository<Repository.Models.Manager>
+    public class ManagersRepository : BaseRepository, IModelRepository<Repository.Models.Managers>
     {
-        private DataModel.SalesEntities context = new DataModel.SalesEntities();
 
-        DataModel.Managers ToEntity(Models.Manager source)
+        DataModel.Managers ToEntity(Models.Managers source)
         {
             return new DataModel.Managers() { Id = source.Id, FirstName = source.FirstName, SecondName = source.SecondName };
         }
 
-        Repository.Models.Manager ToObject(DataModel.Managers source)
+        Repository.Models.Managers ToObject(DataModel.Managers source)
         {
-            return new Repository.Models.Manager() { Id = source.Id, FirstName = source.FirstName, SecondName = source.SecondName };
+            return new Repository.Models.Managers() { Id = source.Id, FirstName = source.FirstName, SecondName = source.SecondName };
         }
 
         #region ManagerRepository
-        public void Add(Models.Manager item)
+        public void Add(Models.Managers item)
         {
             var i = ToEntity(item);
             context.Managers.Add(i);
             SaveChanges();
         }
 
-        public void Remove(Models.Manager item)
+        public void Remove(Models.Managers item)
         {
             var i = ToEntity(item);
             context.Managers.Remove(i);
             SaveChanges();
         }
 
-        public void Update(Models.Manager item)
+        public void Update(Models.Managers item)
         {
             var i = ToEntity(item);
             var u = context.Managers.FirstOrDefault(x => x.Id == i.Id);
@@ -46,7 +45,7 @@ namespace Repository.Classes
             }
         }
 
-        public IEnumerable<Models.Manager> Items
+        public IEnumerable<Models.Managers> Items
         {
             get
             {
@@ -63,5 +62,6 @@ namespace Repository.Classes
             context.SaveChanges();
         }
         #endregion
+
     }
 }

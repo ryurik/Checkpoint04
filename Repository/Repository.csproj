@@ -48,14 +48,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\ArticleRepository.cs" />
-    <Compile Include="Classes\ManagerRepository.cs" />
+    <Compile Include="Classes\ArticlesRepository.cs" />
+    <Compile Include="Classes\BaseRepository.cs" />
+    <Compile Include="Classes\ClientsRepository.cs" />
+    <Compile Include="Classes\FileLogsRepository.cs" />
+    <Compile Include="Classes\ManagersRepository.cs" />
+    <Compile Include="Classes\SalesRepository.cs" />
     <Compile Include="Interaces\IModelRepository.cs" />
-    <Compile Include="Models\Article.cs" />
-    <Compile Include="Models\Client.cs" />
-    <Compile Include="Models\FileLog.cs" />
-    <Compile Include="Models\Manager.cs" />
-    <Compile Include="Models\Sale.cs" />
+    <Compile Include="Models\Articles.cs" />
+    <Compile Include="Models\Clients.cs" />
+    <Compile Include="Models\FileLogs.cs" />
+    <Compile Include="Models\Managers.cs" />
+    <Compile Include="Models\Sales.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

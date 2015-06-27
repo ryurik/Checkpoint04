@@ -8,37 +8,34 @@ using Repository.Interaces;
 
 namespace Repository.Classes
 {
-    class ArticleRepository : IModelRepository<Repository.Models.Article>
+    class ArticlesRepository : BaseRepository, IModelRepository<Repository.Models.Articles>
     {
-        private DataModel.SalesEntities context = new DataModel.SalesEntities();
-
-        DataModel.Articles ToEntity(Models.Article source)
+        DataModel.Articles ToEntity(Models.Articles source)
         {
-            return new DataModel.Articles() {Id = source.Id, Name = source.Name};
+            return new DataModel.Articles() { Id = source.Id, Name = source.Name };
         }
 
-        Repository.Models.Article ToObject(DataModel.Articles source)
+        Repository.Models.Articles ToObject(DataModel.Articles source)
         {
-            return new Repository.Models.Article() { Id = source.Id, Name = source.Name};
+            return new Repository.Models.Articles() { Id = source.Id, Name = source.Name };
         }
-
 
         #region ArticleRepository
-        public void Add(Models.Article item)
+        public void Add(Models.Articles item)
         {
             var i = ToEntity(item);
             context.Articles.Add(i);
             SaveChanges();
         }
 
-        public void Remove(Models.Article item)
+        public void Remove(Models.Articles item)
         {
             var i = ToEntity(item);
             context.Articles.Remove(i);
             SaveChanges();
         }
 
-        public void Update(Models.Article item)
+        public void Update(Models.Articles item)
         {
             var i = ToEntity(item);
             var a = context.Articles.FirstOrDefault(x => x.Id == i.Id);
@@ -49,7 +46,7 @@ namespace Repository.Classes
             }
         }
 
-        public IEnumerable<Models.Article> Items
+        public IEnumerable<Models.Articles> Items
         {
             get
             {
@@ -59,7 +56,6 @@ namespace Repository.Classes
                     yield return ToObject(u);
                 }
             }
-
         }
 
         public void SaveChanges()
@@ -67,5 +63,6 @@ namespace Repository.Classes
             context.SaveChanges();
         }
         #endregion
+
     }
 }

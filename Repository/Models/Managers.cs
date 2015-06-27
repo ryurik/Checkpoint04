@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Repository.Models
 {
-    public class Article
+    public class Managers
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string SecondName { get; set; }
     }
 }

@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Repository.Models
 {
-    public class FileLog
+    public class Clients
     {
         public int Id { get; set; }
-        public System.DateTime Date { get; set; }
-        public string FileName { get; set; }
-        public int ManagerId { get; set; }
+        public string Name { get; set; }
     }
 }
