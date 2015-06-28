@@ -17,5 +17,8 @@
     <Setting Name="BadFilesDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\RYurik\Projects\.Net1-Epam-\Checkpoint04\Watcher\Bad\</Value>
     </Setting>
+    <Setting Name="LogFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\RYurik\SampleWindowsServiceLogger.txt </Value>
+    </Setting>
   </Settings>
 </SettingsFile>

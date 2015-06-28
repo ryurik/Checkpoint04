@@ -77,6 +77,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Sales.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Sales1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Sales.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

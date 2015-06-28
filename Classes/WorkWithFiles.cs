@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DataModel;
 using Repository.Classes;
+using System.Threading.Tasks;
 
 namespace Checkpoint04.Classes
 {
@@ -12,18 +14,31 @@ namespace Checkpoint04.Classes
         private const string RegPattern = @"([a-zA-Z]){1,}([0-9]){2}_(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[012])(19|20)\d\d.csv";
         private const string SecondNamePattern = @"^(.+)_.*$";
 
-        private static Repository.Interaces.IModelRepository<Repository.Models.Articles> _articlesRepository = new Repository.Classes.ArticlesRepository();
-        private static Repository.Interaces.IModelRepository<Repository.Models.Clients> _clientsRepository = new Repository.Classes.ClientsRepository();
-        private static Repository.Interaces.IModelRepository<Repository.Models.FileLogs> _filelogsRepository = new Repository.Classes.FileLogsRepository();
-        private static Repository.Interaces.IModelRepository<Repository.Models.Managers> _managersRepository = new Repository.Classes.ManagersRepository();
-        private static Repository.Interaces.IModelRepository<Repository.Models.Sales> _salesRepository = new Repository.Classes.SalesRepository();
+        private static Repository.Interaces.IModelRepository<Repository.Models.Articles> ArticlesRepository;// = new Repository.Classes.ArticlesRepository();
+        private static Repository.Interaces.IModelRepository<Repository.Models.Clients> ClientsRepository;// = new Repository.Classes.ClientsRepository();
+        private static Repository.Interaces.IModelRepository<Repository.Models.FileLogs> FilelogsRepository;// = new Repository.Classes.FileLogsRepository();
+        private static Repository.Interaces.IModelRepository<Repository.Models.Managers> ManagersRepository;// = new Repository.Classes.ManagersRepository();
+        private static Repository.Interaces.IModelRepository<Repository.Models.Sales> SalesRepository;// = new Repository.Classes.SalesRepository();
 
+        private static List<String> filesQueue = new List<string>();
+
+        public WorkWithFiles()
+        {
+            /**/
+            ArticlesRepository = new Repository.Classes.ArticlesRepository();
+            ClientsRepository = new Repository.Classes.ClientsRepository();
+            FilelogsRepository = new Repository.Classes.FileLogsRepository();
+            ManagersRepository = new Repository.Classes.ManagersRepository();
+            SalesRepository = new Repository.Classes.SalesRepository();
+            /*--*/
+        }
 
         public void OnChanged(object source, FileSystemEventArgs e)
         {
             Console.WriteLine(@"Something was appeared in folder:{0}", e.FullPath);
-
-            ProcessFile(e.FullPath);
+            filesQueue.Add(e.FullPath);
+            ProcessQueue(); 
+            //ProcessFile(e.FullPath);
         }
 
         public void ProcessAllExistingFilesInDirectory()
@@ -31,8 +46,26 @@ namespace Checkpoint04.Classes
             foreach (var f in Directory.GetFiles(Properties.Settings.Default.WorkingDirectory, Properties.Settings.Default.FileExtension))
             {
                 Console.WriteLine(@"Process file:{0}", f);
-                ProcessFile(f);    
+                filesQueue.Add(f);
             }
+            ProcessQueue(); 
+        }
+
+        private static void ProcessQueue()
+        {
+            while (filesQueue.Count > 0)
+            {
+                lock (filesQueue)
+                {
+                    var filename = filesQueue[0]; // Get and always working with first file in queue
+                    if (File.Exists(filename))
+                    {
+                        ProcessFile(filename);
+                    }
+                    filesQueue.Remove(filename);
+                }
+            }
+            
         }
 
         private static void ProcessFile(string filename)
@@ -67,8 +100,16 @@ namespace Checkpoint04.Classes
             }
             string shortfilename = Path.GetFileName(filename);
 
-            var filelogs = _filelogsRepository.Items.FirstOrDefault(x => x.FileName.Equals(shortfilename, StringComparison.OrdinalIgnoreCase));
-
+            EventLogs.AddLog("filelogs = FilelogsRepository.Items.FirstOrDefault");
+            Repository.Models.FileLogs filelogs = null;
+            try
+            {
+                filelogs = FilelogsRepository.Items.FirstOrDefault(x => x.FileName.Equals(shortfilename, StringComparison.OrdinalIgnoreCase));
+            }
+            catch (Exception E)
+            {
+                EventLogs.AddLog(E.Message);
+            }
             if (filelogs != null)
             {
                 Console.WriteLine(@"File was already processed:{0}", shortfilename);
@@ -123,33 +164,35 @@ namespace Checkpoint04.Classes
 
         private static void AddCortegeToDb(ICortege cortege)
         {
-            var managers = _managersRepository.Items.FirstOrDefault(x => x.SecondName.ToLower().Equals(cortege.ManagerName.SecondName.ToLower()));
+
+            /**/
+            var managers = ManagersRepository.Items.FirstOrDefault(x => x.SecondName.ToLower().Equals(cortege.ManagerName.SecondName.ToLower()));
 
             if (managers == null)
             {
                 managers = new Repository.Models.Managers(){ FirstName = "", SecondName = cortege.ManagerName.SecondName, };
-                _managersRepository.Add(managers);
+                ManagersRepository.Add(managers);
             }
 
-            var clients = _clientsRepository.Items.FirstOrDefault(x => x.Name.ToLower().Equals(cortege.Client.ToLower()));
+            var clients = ClientsRepository.Items.FirstOrDefault(x => x.Name.ToLower().Equals(cortege.Client.ToLower()));
             if (clients == null)
             {
                 clients = new Repository.Models.Clients() { Name = cortege.Client };
-                _clientsRepository.Add(clients);
+                ClientsRepository.Add(clients);
             }
 
-            var articles = _articlesRepository.Items.FirstOrDefault(x => x.Name.ToLower().Equals(cortege.Article.ToLower()));
+            var articles = ArticlesRepository.Items.FirstOrDefault(x => x.Name.ToLower().Equals(cortege.Article.ToLower()));
             if (articles == null)
             {
                 articles = new Repository.Models.Articles() { Name = cortege.Article, };
-                _articlesRepository.Add(articles);
+                ArticlesRepository.Add(articles);
             }
 
-            var filelogs = _filelogsRepository.Items.FirstOrDefault(x => x.FileName.ToLower().Equals(cortege.FileLog.ToLower()));
+            var filelogs = FilelogsRepository.Items.FirstOrDefault(x => x.FileName.ToLower().Equals(cortege.FileLog.ToLower()));
             if (filelogs == null)
             {
                 filelogs = new Repository.Models.FileLogs() { Date = cortege.Date, FileName = cortege.FileLog, Manager_Id = managers.Id};
-                _filelogsRepository.Add(filelogs);
+                FilelogsRepository.Add(filelogs);
             }
 
             // ok, now we have all IDs of objects. We can put this cortege to DB
@@ -161,7 +204,8 @@ namespace Checkpoint04.Classes
                 FileLogs = filelogs,
                 Sum = cortege.Price,
             };
-            _salesRepository.Add(sales);
+            SalesRepository.Add(sales);
+            /*--*/
         }
          
     }

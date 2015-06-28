@@ -82,5 +82,17 @@ namespace Checkpoint04.Properties {
                 this["BadFilesDirectory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\RYurik\\SampleWindowsServiceLogger.txt ")]
+        public string LogFileName {
+            get {
+                return ((string)(this["LogFileName"]));
+            }
+            set {
+                this["LogFileName"] = value;
+            }
+        }
     }
 }

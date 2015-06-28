@@ -8,7 +8,8 @@ namespace Repository.Classes
 
         public BaseRepository()
         {
-            context.Database.Log = x => Console.WriteLine(x);
+            if (Environment.UserInteractive)
+                context.Database.Log = x => Console.WriteLine(x);
         }
     }
 }

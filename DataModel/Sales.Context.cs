@@ -15,8 +15,7 @@ namespace DataModel
     
     public partial class SalesEntities : DbContext
     {
-        public SalesEntities()
-            : base("name=SalesEntities")
+        public SalesEntities() : base("name=SalesEntities")
         {
         }
     
